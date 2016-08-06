@@ -1,12 +1,21 @@
 - hosts: consul
   become: yes
   tasks:
-    - name: start nginx
+    - name: start proxy
+      docker_container:
+        name: nginx
+        image: nginx
+        ports:
+          - "80:80"
+        env:
+          SERVICE_80_NAME: "nginx"
+
+    - name: start apps
       docker_container:
         name: nginx-{{ item }}
         image: nginx
         ports:
           - "2808{{ item }}:80"
         env:
-          SERVICE_80_NAME: "nginx"
+          SERVICE_80_NAME: "app"
       with_sequence: count=3

@@ -2,4 +2,4 @@
   roles:
     - docker
     - consul
-    - registrator
+    - registrator 
