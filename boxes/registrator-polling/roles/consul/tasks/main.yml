@@ -1,0 +1,24 @@
+- name: install pip
+  become: yes
+  apt: name=python-pip
+
+- name: install docker-py
+  become: yes
+  pip: name=docker-py
+
+- name: start consul container
+  become: yes
+  docker_container:
+    name: consul
+    image: consul
+    network_mode: host
+    env:
+      CONSUL_LOCAL_CONFIG: {"skip_leave_on_interrupt": true}
+    command: >
+      consul agent 
+      -server 
+      -bind={{ ansible_default_ipv4.address }} 
+      -client=0.0.0.0
+      -data-dir=/consul/data
+      -ui
+      -bootstrap
