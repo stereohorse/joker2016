@@ -1,4 +1,0 @@
-- hosts: consul
-  roles:
-    - { role: docker, tag: docker }
-    - { role: consul, tag: consul }

@@ -23,3 +23,11 @@
 - name: install docker engine
   become: true
   apt: name=docker-engine update_cache=yes
+
+- name: install pip
+  become: yes
+  apt: name=python-pip
+
+- name: install docker-py
+  become: yes
+  pip: name=docker-py

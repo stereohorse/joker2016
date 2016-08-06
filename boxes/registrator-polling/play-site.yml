@@ -1,0 +1,5 @@
+- hosts: consul
+  roles:
+    - docker
+    - consul
+    - registrator

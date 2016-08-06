@@ -1,0 +1,12 @@
+- hosts: consul
+  become: yes
+  tasks:
+    - name: start nginx
+      docker_container:
+        name: nginx-{{ item }}
+        image: nginx
+        ports:
+          - "2808{{ item }}:80"
+        env:
+          SERVICE_80_NAME: "nginx"
+      with_sequence: count=3

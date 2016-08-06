@@ -1,0 +1,9 @@
+- name: start registrator container
+  become: yes
+  docker_container:
+    name: registrator 
+    image: gliderlabs/registrator
+    network_mode: host
+    command: consul://localhost:8500
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock

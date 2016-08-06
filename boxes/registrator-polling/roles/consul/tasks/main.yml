@@ -1,11 +1,3 @@
-- name: install pip
-  become: yes
-  apt: name=python-pip
-
-- name: install docker-py
-  become: yes
-  pip: name=docker-py
-
 - name: start consul container
   become: yes
   docker_container:
