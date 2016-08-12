@@ -3,3 +3,4 @@
     - docker
     - consul
     - registrator 
+    - { role: consul-template, tags: consul-template }

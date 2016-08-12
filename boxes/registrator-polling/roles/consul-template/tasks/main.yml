@@ -1,0 +1,20 @@
+- name: create template dir
+  become: yes
+  file: path=/etc/consul-template state=directory mode=0777
+
+- name: copy nginx template
+  become: yes
+  copy: src=nginx.ctmpl dest=/etc/consul-template/nginx.ctmpl mode=0777
+
+- name: start consul-template
+  become: yes
+  docker_container:
+    name: consul-template
+    image: 0x06065a/consul-template:0.15.0
+    restart: yes
+    volumes:
+      - "/etc/consul-template:/etc/consul-template"
+    command: 
+      consul-template 
+      -consul 192.168.5.2:8500
+      -template "/etc/consul-template/nginx.ctmpl:/etc/consul-template/nginx.result"
