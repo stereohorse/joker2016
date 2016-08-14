@@ -10,11 +10,13 @@
   become: yes
   docker_container:
     name: consul-template
-    image: 0x06065a/consul-template:0.15.0
-    restart: yes
+    image: "0x06065a/consul-template:0.15.0"
+    env:
+      SERVICE_IGNORE: true
     volumes:
       - "/etc/consul-template:/etc/consul-template"
+      - "/var/run/docker.sock:/var/run/docker.sock"
     command: 
       consul-template 
       -consul 192.168.5.2:8500
-      -template "/etc/consul-template/nginx.ctmpl:/etc/consul-template/nginx.result"
+      -template "/etc/consul-template/nginx.ctmpl:/etc/consul-template/site.conf:docker kill -s HUP nginx"

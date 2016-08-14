@@ -6,6 +6,7 @@
     network_mode: host
     env:
       CONSUL_LOCAL_CONFIG: {"skip_leave_on_interrupt": true}
+      SERVICE_IGNORE: true
     command: >
       consul agent 
       -server 

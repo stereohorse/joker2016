@@ -5,17 +5,22 @@
       docker_container:
         name: nginx
         image: nginx
+        volumes:
+          - "/etc/consul-template:/etc/nginx/conf.d"
         ports:
           - "80:80"
         env:
-          SERVICE_80_NAME: "nginx"
+          SERVICE_80_NAME: nginx
+          SERVICE_IGNORE: true
 
     - name: start apps
       docker_container:
-        name: nginx-{{ item }}
-        image: nginx
+        name: app-{{ item }}
+        image: 0x06065a/joker2016-sample-api:0.0.4
         ports:
-          - "2808{{ item }}:80"
+          - "2808{{ item }}:8080"
         env:
-          SERVICE_80_NAME: "app"
+          SERVICE_NAME: "app"
+          SERVICE_CHECK_HTTP: "/health"
+          SERVICE_CHECK_INTERVAL: 3s
       with_sequence: count=3

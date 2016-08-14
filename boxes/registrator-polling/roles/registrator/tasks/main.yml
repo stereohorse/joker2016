@@ -4,6 +4,6 @@
     name: registrator 
     image: gliderlabs/registrator
     network_mode: host
-    command: consul://localhost:8500
+    command: -ip 192.168.5.2 consul://localhost:8500
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock

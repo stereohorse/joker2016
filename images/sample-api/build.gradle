@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
+        classpath 'com.bmuschko:gradle-docker-plugin:3.0.1'
+    }
+}
+
+
+// -- java app -------------------------------------------------------------
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'spring-boot'
+
+group = 'ru.stereohorse.joker2016'
+version = '0.0.4'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+
+    compileOnly 'org.projectlombok:lombok:1.16.10'
+}
+
+
+// -- docker image ---------------------------------------------------------
+
+apply plugin: 'com.bmuschko.docker-java-application'
+
+docker {
+    javaApplication {
+        baseImage = '0x06065a/java:8u92-alpine'
+    }
+}
+
+task dockerImage << {
+    exec {
+        commandLine 'docker', 'build', '--force-rm=true', "--tag=0x06065a/joker2016-sample-api:${project.version}", 'build/docker'
+    }
+}
+
+task dockerPush << {
+    exec {
+        commandLine 'docker', 'push', "0x06065a/joker2016-sample-api:${project.version}"
+    }
+}
+
+dockerImage {
+    dependsOn dockerDistTar
+}
+
+
+

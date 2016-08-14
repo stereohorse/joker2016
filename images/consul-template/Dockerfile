@@ -1,4 +1,4 @@
-FROM alpine
+FROM docker:1.12.0
 
 ADD https://releases.hashicorp.com/consul-template/0.15.0/consul-template_0.15.0_linux_amd64.zip /tmp
 
