@@ -3,6 +3,7 @@
     - docker
     - consul
     - registrator 
+    - nginx
     - consul-template
 
 - include: play-apps.yml

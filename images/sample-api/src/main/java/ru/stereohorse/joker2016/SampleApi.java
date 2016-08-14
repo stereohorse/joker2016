@@ -29,7 +29,7 @@ public class SampleApi {
             .body(appStatus);
     }
 
-    @RequestMapping(value = "/toggleHealth", method = POST)
+    @RequestMapping(value = "/health/toggle", method = POST)
     public ResponseEntity<HealthStatus> toggleHealth() {
         appStatus = appStatus == UP ? DOWN : UP;
 

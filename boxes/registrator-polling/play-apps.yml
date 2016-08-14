@@ -1,22 +1,10 @@
 - hosts: consul
   become: yes
   tasks:
-    - name: start proxy
-      docker_container:
-        name: nginx
-        image: nginx
-        volumes:
-          - "/etc/consul-template:/etc/nginx/conf.d"
-        ports:
-          - "80:80"
-        env:
-          SERVICE_80_NAME: nginx
-          SERVICE_IGNORE: true
-
     - name: start apps
       docker_container:
         name: app-{{ item }}
-        image: 0x06065a/joker2016-sample-api:0.0.4
+        image: 0x06065a/joker2016-sample-api:0.0.5
         ports:
           - "2808{{ item }}:8080"
         env:

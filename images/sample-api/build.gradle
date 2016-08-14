@@ -17,7 +17,7 @@ apply plugin: 'application'
 apply plugin: 'spring-boot'
 
 group = 'ru.stereohorse.joker2016'
-version = '0.0.4'
+version = '0.0.5'
 
 repositories {
     jcenter()

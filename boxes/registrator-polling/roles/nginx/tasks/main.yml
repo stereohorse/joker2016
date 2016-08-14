@@ -1,0 +1,12 @@
+- name: start proxy
+  become: yes
+  docker_container:
+    name: nginx
+    image: nginx
+    volumes:
+      - "/etc/consul-template:/etc/nginx/conf.d"
+    ports:
+      - "80:80"
+    env:
+      SERVICE_80_NAME: nginx
+      SERVICE_IGNORE: true
