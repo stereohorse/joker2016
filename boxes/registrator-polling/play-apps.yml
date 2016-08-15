@@ -1,4 +1,4 @@
-- hosts: consul
+- hosts: vm1
   become: yes
   tasks:
     - name: start apps

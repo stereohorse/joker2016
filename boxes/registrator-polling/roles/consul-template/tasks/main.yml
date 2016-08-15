@@ -18,5 +18,5 @@
       - "/var/run/docker.sock:/var/run/docker.sock"
     command: 
       consul-template 
-      -consul 192.168.5.2:8500
+      -consul {{ansible_eth0.ipv4.address}}:8500
       -template "/etc/consul-template/nginx.ctmpl:/etc/consul-template/site.conf:docker kill -s HUP nginx"
