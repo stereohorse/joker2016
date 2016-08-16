@@ -1,9 +1,15 @@
 - hosts: consul
+  become: yes
   roles:
     - docker
     - consul
     - registrator 
     - nginx
     - consul-template
+
+- hosts: mesos
+  become: yes
+  roles:
+    - minimesos
 
 - include: play-apps.yml

@@ -1,5 +1,4 @@
 - name: start proxy
-  become: yes
   docker_container:
     name: nginx
     image: nginx

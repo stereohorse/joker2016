@@ -1,5 +1,4 @@
 - name: start consul container
-  become: yes
   docker_container:
     name: consul
     image: consul

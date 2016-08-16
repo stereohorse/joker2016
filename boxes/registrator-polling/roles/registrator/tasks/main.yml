@@ -1,5 +1,4 @@
 - name: start registrator container
-  become: yes
   docker_container:
     name: registrator 
     image: gliderlabs/registrator

@@ -1,0 +1,29 @@
+- name: init minimesos repo dir
+  file: path=/minimesos state=directory mode=777
+
+- name: install py modules for SSL
+  pip: name={{ item }} 
+  with_items:
+    - urllib3
+    - pyopenssl
+    - ndg-httpsclient
+    - pyasn1
+
+- name: download minimesos
+  get_url: url=https://minimesos.org/install dest=/minimesos/install.sh mode=777
+
+- name: install minimesos
+  shell: /minimesos/install.sh
+
+- name: copy minimesos config
+  copy: src=minimesosFile dest=/minimesos/minimesosFile
+
+- name: copy app manifest
+  copy: src=app-manifest.json dest=/minimesos/app-manifest.json
+
+- name: destroy minimesos
+  command: /root/.minimesos/bin/minimesos destroy chdir=/minimesos
+
+- name: start minimesos
+  command: /root/.minimesos/bin/minimesos up chdir=/minimesos
+  
