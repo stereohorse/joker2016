@@ -1,6 +1,0 @@
-- name: start mesos-master
-  docker_container:
-    name: mesos-master
-    image: 0x06065a/mesos:1.0.0
-    network_mode: host
-    command: mesos-master --allocation_interval="1secs" --allocator="HierarchicalDRF" --authenticate="false" --authenticate_slaves="false" --authenticators="crammd5" --authorizers="local" --framework_sorter="drf" --help="false" --hostname="{{ansible_eth1.ipv4.address}}" --initialize_driver_logging="true" --ip="{{ansible_eth1.ipv4.address}}" --log_auto_initialize="true" --log_dir="/var/log/mesos" --logbufsecs="0" --logging_level="INFO" --max_slave_ping_timeouts="5" --port="5050" --quiet="false" --recovery_slave_removal_limit="100%" --registry="replicated_log" --registry_fetch_timeout="1mins" --registry_store_timeout="5secs" --registry_strict="false" --root_submissions="true" --slave_ping_timeout="15secs" --slave_reregister_timeout="10mins" --user_sorter="drf" --version="false" --work_dir="/var/lib/mesos" --zk_session_timeout="10secs" --no-hostname_lookup
