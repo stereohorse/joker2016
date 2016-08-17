@@ -4,6 +4,24 @@
 - name: add mesosphere repo
   apt_repository: repo="deb http://repos.mesosphere.com/ubuntu trusty main"
 
+- name: install software-properties-common
+  apt: name=software-properties-common
+
+- name: select oracle license for java
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+
+- name: see oracle license for java
+  shell: echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+
+- name: add java repo
+  shell: add-apt-repository ppa:webupd8team/java
+
+- name: install java8
+  apt: name=oracle-java8-installer update_cache=yes
+
+- name: set oracle java8 as default
+  apt: name=oracle-java8-set-default
+
 - name: install mesos and marathon
   apt: name={{ item }}
   with_items:
