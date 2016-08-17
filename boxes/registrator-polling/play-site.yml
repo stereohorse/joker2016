@@ -10,6 +10,6 @@
 - hosts: mesos
   become: yes
   roles:
-    - minimesos
+    - { role: zookeeper-mesos-marathon, tags: zmm }
 
 - include: play-apps.yml

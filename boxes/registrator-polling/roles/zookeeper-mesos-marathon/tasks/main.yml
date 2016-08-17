@@ -1,0 +1,66 @@
+- name: install mesosphere keys
+  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=E56151BF
+
+- name: add mesosphere repo
+  apt_repository: repo="deb http://repos.mesosphere.com/ubuntu trusty main"
+
+- name: install mesos and marathon
+  apt: name={{ item }}
+  with_items:
+    - mesos 
+    - marathon
+
+
+- name: start zookeeper
+  service: name=zookeeper state=restarted
+
+
+- name: set zookeeper for mesos
+  copy: dest=/etc/mesos/zk content="zk://{{ ansible_eth1.ipv4.address }}:2181/mesos"
+
+- name: set mesos quorum size
+  copy: dest=/etc/mesos-master/quorum content=1
+
+- name: set mesos hostname
+  copy: dest=/etc/mesos-master/hostname content="{{ ansible_eth1.ipv4.address }}"
+
+- name: set mesos ip
+  copy: dest=/etc/mesos-master/ip content="{{ ansible_eth1.ipv4.address }}"
+
+- name: set mesos work dir
+  copy: dest=/etc/mesos-master/work_dir content="/var/lib/mesos"
+
+- name: disable mesos hostname lookup
+  copy: dest=/etc/mesos-master/hostname_lookup content="false"
+
+- name: start mesos-master service
+  service: name=mesos-master state=restarted
+
+
+- name: create marthon conf dir
+  file: path=/etc/marathon/conf state=directory
+
+- name: set marathon hostname
+  copy: dest=/etc/marathon/conf/hostname content="{{ ansible_eth1.ipv4.address }}"
+
+- name: set marathon master
+  copy: dest=/etc/marathon/conf/master content="zk://{{ ansible_eth1.ipv4.address }}:2181/mesos"
+
+- name: set marathon zk
+  copy: dest=/etc/marathon/conf/zk content="zk://{{ ansible_eth1.ipv4.address }}:2181/marathon"
+
+- name: start marathon
+  service: name=marathon state=restarted
+
+
+- name: set mesos agent hostname
+  copy: dest=/etc/mesos-slave/hostname content="{{ ansible_eth1.ipv4.address }}"
+
+- name: disable mesos agent hostname lookup
+  copy: dest=/etc/mesos-slave/hostname_lookup content="false"
+
+- name: setup conteinerizers
+  copy: dest=/etc/mesos-slave/containerizers content="docker"
+
+- name: start mesos agent
+  service: name=mesos-slave state=restarted

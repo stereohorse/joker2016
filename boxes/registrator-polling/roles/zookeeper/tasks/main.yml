@@ -1,0 +1,5 @@
+- name: start zookeeper
+  docker_container:
+    name: zookeeper
+    image: 0x06065a/zookeeper:3.4.5
+    network_mode: host
