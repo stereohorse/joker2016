@@ -25,6 +25,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "play-site.yml"
     ansible.groups = {
+      "docker" => ["vm1", "vm2", "vm3"],
       "consul" => ["vm1", "vm2"],
       "mesos" => ["vm2", "vm3"]
     }

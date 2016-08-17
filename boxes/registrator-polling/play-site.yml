@@ -1,15 +1,22 @@
-- hosts: consul
+- hosts: docker
   become: yes
   roles:
     - docker
+
+
+- hosts: consul
+  become: yes
+  roles:
     - consul
     - registrator 
     - nginx
     - consul-template
 
+
 - hosts: mesos
   become: yes
   roles:
-    - { role: zookeeper-mesos-marathon, tags: zmm }
+    - zookeeper-mesos-marathon
+
 
 - include: play-apps.yml
