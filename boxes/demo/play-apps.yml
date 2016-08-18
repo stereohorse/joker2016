@@ -12,3 +12,12 @@
           SERVICE_CHECK_HTTP: "/health"
           SERVICE_CHECK_INTERVAL: 3s
       with_sequence: count=3
+
+- hosts: mesos
+  tasks:
+    - name: start apps
+      uri: 
+        url: "http://{{ ansible_eth1.ipv4.address }}:8080/v2/apps?force=true"
+        method: PUT
+        body: "{{ lookup('file','files/app-manifest.json') }}"
+        body_format: json

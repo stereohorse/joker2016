@@ -19,4 +19,7 @@
     - zookeeper-mesos-marathon
 
 
-- include: play-apps.yml
+- hosts: haproxy
+  become: yes
+  roles:
+    - { role: bamboo, tags: bamboo }

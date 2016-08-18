@@ -67,6 +67,9 @@
 - name: set marathon zk
   copy: dest=/etc/marathon/conf/zk content="zk://{{ ansible_eth1.ipv4.address }}:2181/marathon"
 
+- name: set marathon event stream
+  copy: dest=/etc/marathon/conf/event_subscriber content="http_callback"
+
 - name: start marathon
   service: name=marathon state=restarted
 
