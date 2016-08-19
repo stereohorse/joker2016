@@ -16,7 +16,7 @@
 - hosts: mesos
   become: yes
   roles:
-    - zookeeper-mesos-marathon
+    - { role: zookeeper-mesos-marathon, tags: zmm }
 
 
 - hosts: haproxy
