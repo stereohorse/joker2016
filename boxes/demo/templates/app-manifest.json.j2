@@ -1,6 +1,6 @@
 [
   {
-    "id": "app",
+    "id": "java-app",
     "backoffFactor": 2.0,
     "backoffSeconds": 30,
     "container": {
@@ -24,7 +24,7 @@
       "type": "DOCKER"
     },
     "env": {
-      "SERVICE_NAME": "app",
+      "SERVICE_NAME": "java-app",
       "START_DELAY_SECS": "10"
     },
     "cpus": 0.1,
@@ -41,7 +41,11 @@
       }
     ],
     "labels": {
-      "label1": "5"
+      "DEPLOYMENT_ID": "{{ ansible_date_time.iso8601_micro | to_uuid }}",
+      "HAPROXY_GROUP": "joker2016",
+      "HAPROXY_0_VHOST": "java-app.2016.joker.ru",
+      "HAPROXY_0_HTTP_BACKEND_PROXYPASS_PATH": "/java-app",
+      "HAPROXY_0_PATH": "/java-app"
     },
     "instances": 2,
     "maxLaunchDelaySeconds": 86400,

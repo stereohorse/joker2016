@@ -57,7 +57,6 @@ backend {{ $app.EscapedId }}-cluster{{ if $app.HealthCheckPath }}
         option httpchk GET {{ $app.HealthCheckPath }}
         {{ end }}
         balance leastconn
-        option httpclose
         option forwardfor
         reqrep ^([^\ :]*)\ /{{ $app.Env.SERVICE_NAME }}(.*)     \1\ /\2
         {{ range $page, $task := .Tasks }}

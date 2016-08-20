@@ -19,5 +19,5 @@
       uri: 
         url: "http://{{ ansible_eth1.ipv4.address }}:8080/v2/apps?force=true"
         method: PUT
-        body: "{{ lookup('file','files/app-manifest.json') }}"
+        body: "{{ lookup('template','templates/app-manifest.json.j2') }}"
         body_format: json
