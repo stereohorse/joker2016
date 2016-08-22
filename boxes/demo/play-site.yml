@@ -10,7 +10,7 @@
     - consul
     - registrator 
     - nginx
-    - consul-template
+    - { role: consul-template, tags: ct }
   tags: consul
 
 
