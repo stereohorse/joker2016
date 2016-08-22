@@ -1,3 +1,7 @@
+- name: remove consul container
+  docker_container: name=consul state=absent
+  when: clean is defined and clean
+
 - name: start consul container
   docker_container:
     name: consul

@@ -36,26 +36,26 @@
     - mesos-slave
     - mesos-master
     - zookeeper
-  when: clean_zmm is defined and clean_zmm
+  when: clean is defined and clean
 
 - name: clear data dirs
   file: path={{ item }} state=absent
   with_items:
     - /var/lib/mesos
     - /var/lib/zookeeper
-  when: clean_zmm is defined and clean_zmm
+  when: clean is defined and clean
 
 - name: create data dirs
   file: path={{ item }} state=directory mode=0777
   with_items:
     - /var/lib/mesos
     - /var/lib/zookeeper
-  when: clean_zmm is defined and clean_zmm
+  when: clean is defined and clean
 
 - name: delete marathon docker tasks
   shell: docker ps -a | grep mesos- | cut -f1 -d ' '
   ignore_errors: yes
-  when: clean_zmm is defined and clean_zmm
+  when: clean is defined and clean
 
 
 - name: start zookeeper

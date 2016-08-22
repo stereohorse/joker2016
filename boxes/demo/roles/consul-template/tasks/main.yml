@@ -1,3 +1,7 @@
+- name: remove consul-template container
+  docker_container: name=consul-template state=absent
+  when: clean is defined and clean
+
 - name: create template dir
   file: path=/etc/consul-template state=directory mode=0777
 
@@ -7,6 +11,7 @@
 - name: start consul-template
   docker_container:
     name: consul-template
+    restart: yes
     image: "0x06065a/consul-template:0.15.0"
     env:
       SERVICE_IGNORE: true

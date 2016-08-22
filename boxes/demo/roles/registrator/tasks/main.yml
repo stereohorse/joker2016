@@ -1,3 +1,7 @@
+- name: remove registrator container
+  docker_container: name=registrator state=absent
+  when: clean is defined and clean
+
 - name: start registrator container
   docker_container:
     name: registrator 

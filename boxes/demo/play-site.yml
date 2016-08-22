@@ -11,12 +11,14 @@
     - registrator 
     - nginx
     - consul-template
+  tags: consul
 
 
 - hosts: mesos
   become: yes
   roles:
-    - { role: zookeeper-mesos-marathon, tags: zmm }
+    - zookeeper-mesos-marathon
+  tags: zmm
 
 
 - hosts: haproxy
@@ -24,3 +26,4 @@
   roles:
     - { role: bamboo, tags: bamboo }
     - { role: marathon-lb, tags: mlb }
+  tags: haproxy

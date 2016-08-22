@@ -25,30 +25,41 @@ import static ru.stereohorse.joker2016.HealthStatus.UP;
 @RestController
 public class SampleApi {
 
-    private HealthStatus appStatus = UP;
+    private HealthStatus healthState = UP;
 
-    @Value("${start.delay_secs:0}")
-    private Long startDelaySecs;
+
+    @Value("${start.delay_millis:0}")
+    private Long startDelayMillis;
+
+    @Value("${job.length_millis:200}")
+    private Long jobLengthMillis;
 
 
     @PostConstruct
     @SneakyThrows
     public void delayStart() {
-        sleep(startDelaySecs * 1000);
+        sleep(startDelayMillis);
     }
 
 
     @RequestMapping("/health")
     public ResponseEntity<HealthStatus> getAppHealth() {
-        return status(appStatus == UP ? OK : INTERNAL_SERVER_ERROR)
-            .body(appStatus);
+        return status(healthState == UP ? OK : INTERNAL_SERVER_ERROR)
+            .body(healthState);
     }
 
     @RequestMapping(value = "/health/toggle", method = POST)
     public ResponseEntity<HealthStatus> toggleHealth() {
-        appStatus = appStatus == UP ? DOWN : UP;
+        healthState = healthState == UP ? DOWN : UP;
+        return ok(healthState);
+    }
 
-        return ok(appStatus);
+
+    @SneakyThrows
+    @RequestMapping("/something")
+    public String getSomething() {
+        sleep(jobLengthMillis);
+        return "take this!";
     }
 
 
