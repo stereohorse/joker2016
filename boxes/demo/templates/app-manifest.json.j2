@@ -6,7 +6,7 @@
     "container": {
       "docker": {
         "forcePullImage": true,
-        "image": "0x06065a/joker2016-sample-api:0.0.9",
+        "image": "0x06065a/joker2016-sample-api:0.0.10",
         "network": "BRIDGE",
         "parameters": [
           {
@@ -25,7 +25,8 @@
     },
     "env": {
       "SERVICE_NAME": "java-app",
-      "START_DELAY_SECS": "20"
+      "START_DELAY_SECS": "20",
+      "JOB_LENGTH_MILLIS": "0"
     },
     "cpus": 0.1,
     "healthChecks": [

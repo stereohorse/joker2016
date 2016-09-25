@@ -4,13 +4,14 @@
     - name: start apps
       docker_container:
         name: app-{{ item }}
-        image: 0x06065a/joker2016-sample-api:0.0.5
+        image: 0x06065a/joker2016-sample-api:0.0.10
         ports:
           - "2808{{ item }}:8080"
         env:
           SERVICE_NAME: "app"
           SERVICE_CHECK_HTTP: "/health"
           SERVICE_CHECK_INTERVAL: 3s
+          JOB_LENGTH_MILLIS: 0
       with_sequence: count=2
 
 - hosts: mesos
